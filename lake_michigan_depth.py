@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 #import seaborn as sns
 
 
-data = pd.read_csv('~/Desktop/new_lake.csv')
+data = pd.read_csv('~/Documents/github/great-lakes-water-level/great_lakes_mean_water_levels.csv')
 
 #flights = sns.load_dataset("flights")
 
@@ -88,7 +88,8 @@ for ii in range(0,360,1):
         ax21.view_init(elev=10., azim=ii)
         savefig("movie%d.png" % ii)
 '''
-
+plt.savefig('lakes.png')
+plt.savefig('lakes.pdf')
 plt.show()
 
 fig2 = plt.figure(figsize=(8,6))
@@ -97,8 +98,9 @@ x = range(0, len(x))
 #Jan 2010 to present (May 2019)
 yg = ax.plot(x[1105:1217], lake_michigan_huron_depth[1105:1217])
 
-
-#plt.show()
+plt.savefig('lakes2.png')
+plt.savefig('lakes2.pdf')
+plt.show()
 
 
 '''
