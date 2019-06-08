@@ -38,9 +38,12 @@ for i in range(len(data.columns)):
     ax.grid(True)
     
 plt.tight_layout()
-plt.show()
+#plt.show()
 
 #-------------------------------- Month Vs. Water-level ---------------------------
+
+data = (data.resample('Y').agg(['min', 'max']))
+year = np.arange(1917,2019)
 
 nrows = 2
 ncols = 2
@@ -53,23 +56,13 @@ for i in range(len(data.columns)):
     plot_data = data.iloc[:,i]
     # Select the axis to plot on
     ax = axs[row,col]
-    ax.scatter(plot_data.index, plot_data.values, c=plot_data.values, cmap=plt.cm.cividis, s=6)
+    ax.scatter(year, plot_data.values, c=plot_data.values, cmap=plt.cm.cividis, s=6)
     ax.title.set_text(f"Lake {plot_data.name}")
     ax.set_xlabel("Year")
     ax.set_ylabel("Mean Water Level (Meters)")
     ax.grid(True)
     
 plt.tight_layout()
-plt.show()
-
-michigan_huron_max_min = (data.resample('Y')['Michigan-Huron'].agg(['min', 'max']))
-lake_Superior_max_min = (data.resample('Y')['Superior'].agg(['min', 'max']))
-lake_Erie_max_min = (data.resample('Y')['Erie'].agg(['min', 'max']))
-lake_Ontario_max_min = (data.resample('Y')['Ontario'].agg(['min', 'max']))
-
-year = np.arange(1917,2019)
-plt.scatter(year, michigan_huron_max_min['min'])
-plt.scatter(year, michigan_huron_max_min['max'])
 plt.show()
 
 #--------------------------------seaborn.heatmap---------------------------
