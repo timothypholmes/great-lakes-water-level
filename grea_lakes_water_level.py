@@ -81,35 +81,37 @@ def monthly_mean_water_level():
 #-------------------------------- Month Vs. Min-Max-Water-level ---------------------------
 
 def year_max_min():
-year_min = (data.resample('Y').agg(['min']))
-year_max = (data.resample('Y').agg(['max']))
-#year = np.arange(1917,2019)
-#plt.tight_layout()
-nrows = 2
-ncols = 2
-fig, axs = plt.subplots(nrows=nrows, ncols=ncols, sharex=False, sharey=False)
-fig.set_size_inches(10,6)
-for i in range(len(data.columns)):
-    col = i % ncols
-    row = i // ncols
-    # Select the column at position r+c
-    plot_data_min = year_min.iloc[:,i]
-    plot_data_max = year_min.iloc[:,i]
-    # Select the axis to plot on
-    ax = axs[row,col]
-    ax.scatter(plot_data_min.index, plot_data_min.values, c='r', s=6)
-    #ax.scatter(plot_data_max.index, plot_data_max.values, c='b', s=6)
-    ax.title.set_text(f"Lake {plot_data.name}")
-    ax.set_xlabel("Year")
-    ax.set_ylabel("Mean Water Level (Meters)")
-    ax.grid(True)
+    year_min = (data.resample('Y').agg(['min']))
+    year_max = (data.resample('Y').agg(['max']))
+    #year = np.arange(1917,2019)
+    #plt.tight_layout()
+    nrows = 2
+    ncols = 2
+    fig, axs = plt.subplots(nrows=nrows, ncols=ncols, sharex=False, sharey=False, figsize=(14,10))
+   
+    for i in range(len(data.columns)):
+        col = i % ncols
+        row = i // ncols
+        # Select the column at position r+c
+        plot_data = data.iloc[:,i]
+        plot_data_min = year_min.iloc[:,i]
+        plot_data_max = year_min.iloc[:,i]
+        # Select the axis to plot on
+        ax = axs[row,col]
+        ax1 = axs[row,col]
+        ax.scatter(plot_data_min.index, plot_data_min.values, c='r', s=6)
+        ax1.scatter(plot_data_max.index, plot_data_max.values, c='b', s=6)
+        ax.title.set_text(f"Lake {plot_data.name}")
+        ax.set_xlabel("Year")
+        ax.set_ylabel("Mean Water Level (Meters)")
+        ax.grid(True)
     
-plt.tight_layout()
-plt.show()
-fig.savefig('water_level_month.pdf')
+    plt.tight_layout()
+    plt.show()
+    fig.savefig('year_min_max.pdf')
 
 #-------------------------------- Month Vs. Min-Max-Water-level ---------------------------
-
+'''
 def month_max_min():
     year_min_max = (data.resample('Y').agg(['min', 'max']))
     #year = np.arange(1917,2019)
@@ -127,19 +129,21 @@ def month_max_min():
         ax = axs[row,col]
         ax.scatter(date[0], plot_data.values, c=plot_data.values, cmap=plt.cm.cividis, s=6)
         ax.title.set_text(f"Lake {plot_data.name}")
-        ax.set_xlabel("Year")
+        ax.set_xlabel("Month")
         ax.set_ylabel("Mean Water Level (Meters)")
         ax.grid(True)
     
     plt.tight_layout()
     #plt.show()
-    fig.savefig('water_level_month.pdf')
-
+    fig.savefig('month_min_max.pdf')
+'''
 #--------------------------------seaborn.heatmap---------------------------
-def heat_map():
+#def heat_map():
     #water_level = data.pivot("month", "year", "Michigan-Huron")
     #months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 
-if __name__ == "__main__":
+if __name__=='__main__':
+    year_mean_water_level()
+    monthly_mean_water_level()
     year_max_min()
